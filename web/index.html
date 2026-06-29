@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chen Pin Yu Portfolio</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #3e3f4c;
+      color: #be98aa;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 40px 6vw;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(62, 63, 76, 0.95);
+      border-bottom: 1px solid rgba(190, 152, 170, 0.35);
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 6vw;
+    }
+
+    .logo {
+      font-size: clamp(28px, 5vw, 58px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      font-family: Georgia, "Times New Roman", serif;
+      transform: rotate(-1deg);
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 50px;
+      align-items: center;
+      min-height: 82vh;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(48px, 9vw, 120px);
+      line-height: 0.9;
+      letter-spacing: -4px;
+      margin-bottom: 30px;
+    }
+
+    .hero-text p {
+      max-width: 560px;
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .tag {
+      border: 1px solid #be98aa;
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 13px;
+      opacity: 0.85;
+    }
+
+    .video-card {
+      position: relative;
+      border: 1px solid rgba(190, 152, 170, 0.45);
+      border-radius: 26px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+    }
+
+    .video-thumb {
+      aspect-ratio: 16 / 9;
+      background:
+        linear-gradient(rgba(62, 63, 76, 0.15), rgba(62, 63, 76, 0.5)),
+        url("https://img.youtube.com/vi/qOTidqf8eJc/maxresdefault.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .play-button {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    .play-button span {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      border: 2px solid #be98aa;
+      display: grid;
+      place-items: center;
+      background: rgba(62, 63, 76, 0.55);
+      transition: 0.3s;
+    }
+
+    .play-button span::before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-top: 17px solid transparent;
+      border-bottom: 17px solid transparent;
+      border-left: 26px solid #be98aa;
+      margin-left: 6px;
+    }
+
+    .video-card:hover .play-button span {
+      transform: scale(1.12);
+      background: rgba(190, 152, 170, 0.18);
+    }
+
+    .section-title {
+      font-size: clamp(36px, 6vw, 82px);
+      line-height: 1;
+      margin-bottom: 18px;
+      letter-spacing: -2px;
+    }
+
+    .section-subtitle {
+      max-width: 720px;
+      font-size: 17px;
+      opacity: 0.82;
+      margin-bottom: 48px;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      margin-top: 60px;
+    }
+
+    .category-card {
+      min-height: 260px;
+      border: 1px solid rgba(190, 152, 170, 0.4);
+      border-radius: 24px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.035);
+      transition: 0.35s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-10px);
+      background: rgba(190, 152, 170, 0.08);
+    }
+
+    .category-card h2 {
+      font-size: 26px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .category-card p {
+      font-size: 14px;
+      opacity: 0.75;
+    }
+
+    .arrow {
+      font-size: 36px;
+      align-self: flex-end;
+    }
+
+    .works {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    .work-card {
+ 	  display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(190, 152, 170, 0.38);
+      border-radius: 22px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.035);
+      transition: 0.3s;
+    }
+
+    .work-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .work-thumb {
+	  display: block;
+      position: relative;
+	  width: 100%;
+      aspect-ratio: 16 / 10;
+      background: rgba(190, 152, 170, 0.2);
+      overflow: hidden;
+      cursor: pointer;
+	  flex-shrink: 0;
+    }
+
+    .work-thumb img {
+	  width: 100%;
+      height: 100%;
+      object-fit: cover;
+	  object-position: center;
+      opacity: 0.85;
+      transition: 0.4s;
+    }
+
+    .work-card:hover img {
+      transform: scale(1.06);
+      opacity: 1;
+    }
+
+    .small-play {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    .small-play span {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 1.5px solid #be98aa;
+      display: grid;
+      place-items: center;
+      background: rgba(62, 63, 76, 0.58);
+    }
+
+    .small-play span::before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      border-left: 18px solid #be98aa;
+      margin-left: 4px;
+    }
+
+    .work-info {
+      padding: 22px;
+	  min-height: 180px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .work-info h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .work-info p {
+      font-size: 14px;
+      opacity: 0.76;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .portrait {
+	  width: 360px;
+	  max-width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 28px;
+      border: 1px solid rgba(190, 152, 170, 0.4);
+      background:
+        linear-gradient(135deg, rgba(190, 152, 170, 0.2), rgba(255, 255, 255, 0.03));
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      opacity: 0.85;
+    }
+	  
+	.portrait img {
+	  width: 100%;
+ 	  height: 100%;
+  	  object-fit: cover;
+  	  border-radius: 28px;
+   	  display: block;
+	}
+
+    .about-text h2 {
+      font-size: clamp(40px, 6vw, 86px);
+      line-height: 0.95;
+      margin-bottom: 28px;
+    }
+
+    .about-text p {
+      font-size: 18px;
+      max-width: 680px;
+      opacity: 0.85;
+      margin-bottom: 18px;
+	  transform: translateX(-40px);
+    }
+
+    .contact-box {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+	  transform: translateX(160px);
+    }
+
+    .contact-box a {
+      border: 1px solid #be98aa;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .contact-box a:hover {
+      background: #be98aa;
+      color: #3e3f4c;
+    }
+
+    footer {
+      padding: 36px 6vw;
+      border-top: 1px solid rgba(190, 152, 170, 0.35);
+      font-size: 14px;
+      opacity: 0.75;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 5vw;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      width: min(1100px, 100%);
+      aspect-ratio: 16 / 9;
+      position: relative;
+      background: #000;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .modal iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: -48px;
+      right: 0;
+      border: 1px solid #be98aa;
+      background: transparent;
+      color: #be98aa;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1000px) {
+      .hero,
+      .about-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .works {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .navbar {
+        align-items: flex-start;
+        gap: 18px;
+        flex-direction: column;
+      }
+
+	.works-two {
+  		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media (max-width: 680px) {
+  	  .works-two {
+    	grid-template-columns: 1fr;
+  	  }
+	}
+		
+	.work-thumb img {
+   	 width: 100%;
+ 	 height: 100%;
+ 	 object-fit: cover;
+ 	 object-position: center;
+ 	 display: block;
+	}
+		
+      nav {
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .page {
+        padding: 36px 5vw;
+      }
+
+      .category-grid,
+      .works {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="navbar">
+      <a href="#home" class="logo">Chen Pin Yu</a>
+
+      <nav>
+        <a href="#model-animation">3D Model</a>
+        <a href="#vfx">VFX</a>
+        <a href="#team-project">Team Project & MV</a>
+        <a href="#about">About Me</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="page hero">
+      <div class="hero-text">
+        <h1>Modle&VFX<br>Portfolio</h1>
+        <p>
+          Hi, I’m Chen Pinyu. I’d like to share some images and videos of my work to give you a quick overview of my skills and creative direction. Please feel free to get in touch!
+        </p>
+        <p>
+          嗨，我是陳品妤。右邊放了我的 Portfolio Reels，下面我將用一些作品的圖片及影片讓您快速了解我的工作能力以及我的創作方向，也歡迎與我聯絡喔！
+        </p>
+
+        <div class="hero-tags">
+          <span class="tag">3D Model</span>
+          <span class="tag">VFX</span>
+          <span class="tag">3D animation</span>
+          <span class="tag">Visual Storytelling</span>
+        </div>
+      </div>
+
+      <a class="video-card" href="https://youtu.be/qOTidqf8eJc" target="_blank">
+  		 <div class="video-thumb"></div>
+ 		 <div class="play-button">
+   	 	 <span></span>
+ 	 	</div>
+	  </a>
+    </section>
+
+    <section class="page">
+      <h2 class="section-title">Portfolio Categories</h2>
+		<p class="section-subtitle">
+        Click the categories below to view the works. 點擊下方分類以觀看不同作品。
+      </p>
+		
+      <div class="category-grid">
+        <a href="#model-animation" class="category-card">
+          <div>
+            <h2>3D Model</h2>
+            <p>Modeling, character animation, and environment design.</p>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+
+        <a href="#vfx" class="category-card">
+          <div>
+            <h2>VFX</h2>
+            <p>Visual effects, compositing experiments, motion graphics, and post-production.</p>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+
+        <a href="#team-project" class="category-card">
+          <div>
+            <h2>Team Project<br>& MV</h2>
+            <p>Collaborative animation works, group projects, production process, and MV.</p>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+
+        <a href="#about" class="category-card">
+          <div>
+            <h2>About<br>Me</h2>
+            <p>Profile, skills, contact information, and personal creative direction.</p>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+      </div>
+    </section>
+    <section id="model-animation" class="page">
+      <h2 class="section-title">3D Model</h2>
+      <p class="section-subtitle">
+        A collection of 3D works, including modeling, scene design, and character model.
+        <br>
+        簡單放了一些 3D 建模、角色動畫、與場景設計。
+      </p>
+
+      <div class="works">
+        <article class="work-card">
+          <div class="work-thumb">
+            <img src="ProPic/01.png" alt="3D Model">
+            <div class="small-play"></div>
+          </div>
+          <div class="work-info">
+            <h3>Fishing Cat</h3>
+            <p>Maya建模，釣魚的貓，使用Maya的花草系統，製作出貓咪在湖邊釣魚的景象。</p>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <div class="work-thumb">
+            <img src="ProPic/02.png" alt="3D Model">
+            <div class="small-play"></div>
+          </div>
+          <div class="work-info">
+            <h3>Tifa</h3>
+            <p>Maya角色建模，《最終幻想VII》內的角色Tifa，使用Maya的材質轉印，繪製Tifa的面部，以及鞋子的部分。</p>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <div class="work-thumb">
+            <img src="ProPic/03.png" alt="3D Scene">
+            <div class="small-play"></div>
+          </div>
+          <div class="work-info">
+            <h3>Space Ship</h3>
+            <p>Maya建模，利用簡單的太空船建模，學習Maya的髮線貼圖與燈光的運用，最後輸出導進PS做背景合成。</p>
+          </div>
+        </article>
+		  
+		  <article class="work-card">
+          <div class="work-thumb">
+            <img src="ProPic/04.png" alt="3D Model">
+            <div class="small-play"></div>
+          </div>
+          <div class="work-info">
+            <h3>Shoes</h3>
+            <p>Maya建模，學習Maya的鏡像建模，同時學習使用真實物件材質，做出擬真感。</p>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <div class="work-thumb">
+            <img src="ProPic/05.png" alt="3D Model">
+            <div class="small-play"></div>
+          </div>
+          <div class="work-info">
+            <h3>Little Kitchen</h3>
+            <p>Blender建模，學習使用blender做出一個完整的場景模型，並使用blender物理引擎，製作出麵條、調味料等模型。</p>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <div class="work-thumb">
+            <img src="ProPic/06.png" alt="3D Scene">
+            <div class="small-play"></div>
+          </div>
+          <div class="work-info">
+            <h3>Fish Tank</h3>
+            <p>Maya建模，學習使用curve去拉魚缸跟魚模型的外框，以及使用Maya的水與玻璃材質，練習控制玻璃與水的折射。</p>
+          </div>
+        </article>
+		  
+      </div>
+    </section>
+
+    <section id="vfx" class="page">
+      <h2 class="section-title">VFX</h2>
+      <p class="section-subtitle">
+        Visual effects and compositing work, encompassing After Effects projects, motion graphics, VFX, and short film editing.
+        <br>
+        視覺特效與合成作品，涵蓋Ae專案、MG、VFX、CGI特效及短片剪輯。
+      </p>
+
+      <div class="works">
+        <article class="work-card">
+          <a class="work-thumb" href="https://youtu.be/ahLLqkJFcho" target="_blank">
+   		  <img src="https://img.youtube.com/vi/ahLLqkJFcho/maxresdefault.jpg" alt="3D Animation Work">
+   		  <div class="small-play"><span></span></div>
+ 		  </a>
+          <div class="work-info">
+            <h3>FF7 Motion Graphic</h3>
+            <p>Ae motion graphic 練習，使用FF7本身的地圖與角色，製作虛線的動態，以及發散的線條。</p>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <a class="work-thumb" href="https://youtu.be/bPs8BPTOK54" target="_blank">
+   		  <img src="https://img.youtube.com/vi/bPs8BPTOK54/maxresdefault.jpg" alt="3D Animation Work">
+   		  <div class="small-play"><span></span></div>
+ 		  </a>
+          <div class="work-info">
+            <h3>民權西路變後室了！！</h3>
+            <p>學習 Blender tracking，使用之前做的角色建模，合成進空無一人的民權西路捷運站，配上一些簡單的 Ae調色，並配上夢核感的音樂，做出來的CGI短片。</p>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <a class="work-thumb" href="https://youtu.be/b7lEnDRuZ18" target="_blank">
+   		  <img src="https://img.youtube.com/vi/b7lEnDRuZ18/maxresdefault.jpg" alt="3D Animation Work">
+   		  <div class="small-play"><span></span></div>
+ 		  </a>
+          <div class="work-info">
+            <h3>no tears left to cry</h3>
+            <p>Ae VFX，使用 Ae 的 3D camera 製作出圖片堆疊的方塊，拍攝綠幕素材去背，並合成上去，製作出致敬Ariana Grande的作品。</p>
+          </div>
+        </article>
+		  
+		 <article class="work-card">
+          <a class="work-thumb" href="https://youtu.be/Fc2b7A2ddBA" target="_blank">
+   		  <img src="https://img.youtube.com/vi/Fc2b7A2ddBA/maxresdefault.jpg" alt="3D Animation Work">
+   		  <div class="small-play"><span></span></div>
+ 		  </a>
+          <div class="work-info">
+            <h3>聖鬥士星矢卡牌</h3>
+            <p>Ae tarcking，學習使用 Ae追蹤做出卡牌位移，簡單調色讓卡牌符合現實色調。</p>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <a class="work-thumb" href="https://youtu.be/TYOebphecYw" target="_blank">
+   		  <img src="https://img.youtube.com/vi/TYOebphecYw/maxresdefault.jpg" alt="3D Animation Work">
+   		  <div class="small-play"><span></span></div>
+ 		  </a>
+          <div class="work-info">
+            <h3>跳跳珍奶</h3>
+            <p>學習Ae的位移動態，調整動態曲線，讓彈跳更加自然，以及使用一些溶解的作法，讓整體畫面更加水潤、輕鬆。</p>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <a class="work-thumb" href="https://youtu.be/35CuzCN87zk" target="_blank">
+   		  <img src="https://img.youtube.com/vi/35CuzCN87zk/maxresdefault.jpg" alt="3D Animation Work">
+   		  <div class="small-play"><span></span></div>
+ 		  </a>
+          <div class="work-info">
+            <h3>Rescue a girl</h3>
+            <p>學習Ae變速，製造出人有快速移動的能力，最後用PS做出一份簡單的新聞版面，剪出一個小短片。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="team-project" class="page">
+      <h2 class="section-title">Team Project</h2>
+      <p class="section-subtitle">
+        Presented below are two major group projects and several music videos, along with a description of my specific roles in each.
+        <br>
+        以下擺放兩個四人的團體專案，以及一些MV作品，並說明我在這幾個專案內擔任的工作內容。
+      </p>
+
+      <div class="works-two">
+  		<article class="work-card">
+    	<a class="work-thumb" href="https://youtu.be/BgVf3Em7oP4" target="_blank">
+        <img src="https://img.youtube.com/vi/BgVf3Em7oP4/maxresdefault.jpg" alt="Group Animation">
+        <div class="small-play"><span></span></div>
+        </a>
+
+    	<div class="work-info">
+        <h3>Recycle</h3>
+        <p>
+        Driven by curiosity, a playful and innocent plastic bag encounters a baby sea turtle. What kind of spark will fly between them, and what story will unfold?
+		The film aims to convey the importance of simple eco-friendly actions—specifically reuse—so that all creatures sharing our world can enjoy a clean, safe home where we can all live happily. By personifying the plastic bag and transforming it from a mere sculpture into the turtle's friend, we communicate our core message in a whimsical, child-friendly way, showing everyone that a simple act can truly change our lives.
+		<br>I served as the team leader for this project; my responsibilities included writing the script during pre-production, handling compositing and editing in post-production, and providing technical support throughout the production process. The film was also screened at the Kaohsiung Vision Get Wild (VGW) festival.
+        <br><br>
+        天真貪玩的塑膠袋，在好奇心的驅使下，遇見了小海龜。他們會擦出什麼樣的火花？又會帶來怎樣的故事呢？
+		本片的主旨亦在傳遞透過簡單的環保回收再利用的舉動，讓共享這個世界生存空間的生靈都能夠有乾淨且安全的家園供大家快樂的生活。我們用擬人的方式讓我們的核心概念用更童趣的方式傳遞給大眾，讓曾經是小海龜危害的塑膠袋也能搖身一變成為他的朋友，也藉此想讓大家知道只要一個簡單的舉動也能改變你我的生活。<br>
+		我在這個組別中扮演組長的角色，製作的部分我主要做的是前製劇本的撰寫、後製合成剪輯，以及製作中期的技術支援。這部片也有在高雄放視大賞上進行展出。
+     	</p>
+        </div>
+  		</article>
+		<br>
+
+  		<article class="work-card">
+        <a class="work-thumb" href="https://youtu.be/QaJoNAdF1no" target="_blank">
+        <img src="ProPic/07.png" alt="Team Project 02">
+      	<div class="small-play"><span></span></div>
+   		</a>
+
+    	<div class="work-info">
+      	<h3>識毒</h3>
+      	<p>
+        The film is set in a "social media buffet" where patrons dine—scrolling through social media feeds. A warning sign reminds everyone that they are responsible for selecting what they consume; the establishment accepts no liability. Perhaps the customers overlook this warning, and as they binge-consume content, the atmosphere takes an increasingly eerie turn.
+		The film aims to highlight the importance of media literacy. We use the buffet as a metaphor for the online world, likening the act of filtering out "filth" to choose only a clean apple to the practice of media literacy.<br>
+		I also served as the team leader for this project. My production responsibilities included scene modeling as well as post-production compositing and editing, while my team members handled the hand-drawn illustrations.
+        <br><br>
+        在一間社群媒體自助餐廳，有許多人在此用餐（滑社群媒體），但是餐廳的警告標語提醒著大家吃下去的東西要大家自己進行挑選，餐廳並不負責，也許是前來的顧客沒有注意到，隨著大家暴飲暴食，氣氛也逐漸詭異…。
+		本片主旨為呼籲眾人重視媒體識讀的重要性，我們用自助餐廳擬作網路世界，以挑出髒東西，只吃乾淨的蘋果，比擬媒體識讀。<br>
+		我在這個組別中同樣扮演組長的角色，製作的部分我負責做場景建模，以及後製合成剪輯，手繪的部分是由我的組員們繪製。
+        </p>
+    	</div>
+  		</article>
+		<br>
+		</div>
+		
+		<div class="works">
+        <article class="work-card">
+          <a class="work-thumb" href="https://youtu.be/1rwuW6j1xtE" target="_blank">
+   		  <img src="https://img.youtube.com/vi/1rwuW6j1xtE/maxresdefault.jpg" alt="3D Animation Work">
+   		  <div class="small-play"><span></span></div>
+ 		  </a>
+          <div class="work-info">
+            <h3>學分陣線聯盟</h3>
+            <p>我們改寫翻唱了草蜢的失戀陣線聯盟，用一部 MV 拍出幾個大學生生活的酸甜苦辣，後面放了一些我們在拍這部 MV 的花絮，我在這部 MV 裡擔任劇本、攝影與剪輯的部分。音樂製作的部分是我和我的組員共同重新演藝。</p>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <a class="work-thumb" href="https://youtu.be/oCAiJa8I8co" target="_blank">
+   		  <img src="https://img.youtube.com/vi/oCAiJa8I8co/maxresdefault.jpg" alt="3D Animation Work">
+   		  <div class="small-play"><span></span></div>
+ 		  </a>
+          <div class="work-info">
+            <h3>Me Too</h3>
+            <p>說到我是一個怎麼樣的人，不得不說的一環就是我對自己蠻有自信的，因此我請我的姑姑陪我一起拍了這樣一個 MV 來和大家分享我的生活狀態。這部片的製作全權我自己一人處理，除了攝影師的部分是由我姑姑掌鏡。</p>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <a class="work-thumb" href="https://youtu.be/jYjvJehGOQ4" target="_blank">
+   		  <img src="https://img.youtube.com/vi/jYjvJehGOQ4/maxresdefault.jpg" alt="3D Animation Work">
+   		  <div class="small-play"><span></span></div>
+ 		  </a>
+          <div class="work-info">
+            <h3>沒有關係</h3>
+            <p>這部片是我在升大學的暑假閒暇之餘做的，製作剪輯同樣由我全權負責，我請我的高中朋友作為本片的女主角，想要講述女性在失戀後，從消極到振作的過程，我也特別選擇使用我們淡水的風景作為本片的拍攝地。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="page">
+      <div class="about-layout">
+        <div class="portrait">
+          <img src="ProPic/me.png" alt="My Portrait">
+        </div>
+
+        <div class="about-text">
+          <h2>About Me</h2>
+          <p>
+            Hi, my name is Chen Pin-Yu, and you can also call me Pinky.<br>
+			I’m from Tamsui, and I’m an optimistic and expressive person who loves sharing ideas.
+			I enjoy movies, music, games, manga, and creating videos and animations.<br>
+			To me, animation is a way to tell stories, express emotions, and bring imagination to life.
+			I hope to create animated works that allow more people to feel the charm of stories and characters.
+          </p>
+          <p>
+            謝謝你們看到這裡！大家好！我是陳品妤，也可以叫我魚丸或品妤。<br>
+			我來自淡水，是一個大部分時間樂觀開朗、情緒豐富，也很愛說話的人。<br>
+			平常我喜歡看電影、聽音樂、玩遊戲，看書，也熱愛蒐集動漫漫畫。<br>
+			我特別喜歡透過影像、MV 和動畫，把腦中天馬行空的想法變成可以被看見的作品。
+			對我來說，動畫不只是興趣，更是一種能說故事、表達情感，也讓我持續追夢的方式。
+			希望未來能用自己的動畫作品，讓更多人感受到故事和角色的魅力。
+          </p>
+
+          <div class="contact-box">
+            <a href="mailto:pinky.chen.tp@hotmail.com">Email</a>
+            <a href="https://www.instagram.com/pin.__.yu?igsh=YmpmOGthZ201OWdj&utm_source=qr" target="_blank">Instagram</a>
+            <a href="https://youtube.com/@pinyu1025?si=NWyXZ7nQIpDB4yxc" target="_blank">YouTube</a>
+            <a href="https://drive.google.com/drive/folders/1m2IApj4Qg3tHX8WA1JeEDjwibBTu_I2J?usp=drive_link" target="_blank">Portfolio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Chen Pin Yu Portfolio</p>
+    <p>3D Model & Animation / VFX / Team Project / About Me</p>
+  </footer>
+
+  <div class="modal" id="videoModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeVideo()">Close</button>
+      <iframe
+        id="videoFrame"
+        src=""
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <script>
+    function openVideo(videoId) {
+      const modal = document.getElementById("videoModal");
+      const frame = document.getElementById("videoFrame");
+
+      frame.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+      modal.classList.add("active");
+    }
+
+    function closeVideo() {
+      const modal = document.getElementById("videoModal");
+      const frame = document.getElementById("videoFrame");
+
+      frame.src = "";
+      modal.classList.remove("active");
+    }
+
+    document.getElementById("videoModal").addEventListener("click", function(e) {
+      if (e.target === this) {
+        closeVideo();
+      }
+    });
+  </script>
+</body>
+</html>
